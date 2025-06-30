@@ -18,7 +18,7 @@ namespace Desconecta.Application.Usuario.Responsavel
             _context = context;
         }
 
-        public bool adicionarResponsavel(ResponsavelRequest obj)
+        public int adicionarResponsavel(ResponsavelRequest obj)
         {
             try
             {
@@ -34,11 +34,11 @@ namespace Desconecta.Application.Usuario.Responsavel
                 _context.UsuariosResponsaveis.Add(usuario);
                 _context.SaveChanges();
 
-                return true;
+                return usuario.id;
             }
             catch (Exception)
             {
-                return false;
+                return 0;
             }
         }
 

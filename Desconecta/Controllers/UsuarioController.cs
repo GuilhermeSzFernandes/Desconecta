@@ -24,8 +24,8 @@ namespace Desconecta.Controllers
             var service = new ResponsavelService(_context);
             var inserirUser = service.adicionarResponsavel(obj);
 
-            if(inserirUser)
-                return Ok();
+            if(inserirUser > 0)
+                return Ok(new {codigo = inserirUser});
 
             return BadRequest();
 
