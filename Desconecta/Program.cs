@@ -31,11 +31,20 @@ builder.Services.AddDbContext<DesconectaContext>(options =>
 builder.Services.AddSignalR();
 builder.WebHost.UseUrls("https://localhost:5002");
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirTudo", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 app.MapHub<ConnectionHub>("/controle");
 
 Console.WriteLine("Iniciando servidor...");
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -47,6 +56,8 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+
+app.UseCors("PermitirTudo");
 
 app.UseAuthentication();
 app.UseAuthorization();

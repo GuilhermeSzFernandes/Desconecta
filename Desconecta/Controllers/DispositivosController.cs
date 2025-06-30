@@ -1,4 +1,5 @@
-﻿using Desconecta.Application.WebSocket;
+﻿using Desconecta.Application.Dispositivo;
+using Desconecta.Application.WebSocket;
 using Desconecta.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -39,5 +40,14 @@ namespace Desconecta.Controllers
             return Ok();
         }
 
+        [HttpGet("verificarBloqueio/{codigo}")]
+        public IActionResult verificarBloqueio(string codigo)
+        {
+            var service = new DispositivoService(_context);
+            var verificar = service.verificarBloqueio(codigo);
+            if (verificar)
+                return Ok();
+            return BadRequest();
+        }
     }
 }
